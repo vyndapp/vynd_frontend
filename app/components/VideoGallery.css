@@ -1,0 +1,31 @@
+.NavBar {
+  grid-area: navBar;
+  background-color: #1b1a1a;
+}
+
+.ToolBar {
+  grid-area: ToolBar;
+  background-color: #e2e2e2;
+}
+
+.VideosDiv {
+  grid-area: videosDiv;
+  background-color: #1f1f1f;
+  overflow: auto;
+}
+
+.PeopleBar {
+  grid-area: peopleBar;
+  background-color: #1b1a1a;
+  overflow: auto;
+}
+
+.Container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 150px auto 150px;
+  grid-template-rows: 63px auto;
+  grid-template-areas:
+    'navBar ToolBar peopleBar'
+    'navBar videosDiv peopleBar';
+}

@@ -7,28 +7,29 @@ import ToolBar from "./ToolBar";
 import GridInfiniteScroll from "./GridInfiniteScroll";
 import { Grommet } from "grommet";
 import { isAbsolute } from "upath";
+import Videos from './Videos/Videos';
+import classes from './VideoGallery.css'
 
 export default class VideoGallery extends Component<Props> {
   props: Props;
 
   render() {
     return (
-      <div className={photon.window}>
-        <div className={photon["window-content"]}>
-          <div className={photon["pane-group"]}>
-            <div className={photon["pane-sm"] + " " + photon.sidebar}>
-              <NavBar />
-            </div>
-            <div className={photon.pane}>
-              <ToolBar />
-              <Grommet>
-                <GridInfiniteScroll />
-              </Grommet>
-            </div>
-            <div className={photon["pane-sm"] + " " + photon.sidebar}>
-              <PeopleView />
-            </div>
-          </div>
+      <div className={classes.Container}>
+        <div className={classes.NavBar}>
+          <NavBar />
+        </div>
+
+        <div className={classes.ToolBar}>
+          <ToolBar />
+        </div>
+        
+        <div className={classes.VideosDiv}>
+          <Videos />
+        </div>
+
+        <div className={classes.PeopleBar}>
+          <PeopleView />
         </div>
       </div>
     );
