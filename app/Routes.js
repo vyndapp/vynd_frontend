@@ -5,6 +5,7 @@ import App from './containers/App';
 import HomePage from './containers/HomePage';
 import CounterPage from './containers/CounterPage';
 import VideoGalleryContainer from './containers/VideoGalleryContainer';
+import PeopleContainer from './containers/PeopleContainer';
 
 export default () => (
   <App>
@@ -12,6 +13,7 @@ export default () => (
       <Route exact path={routes.HOME} component={HomePage} />
       <Route path={routes.GALLERY} component={VideoGalleryContainer} />
       <Route path={routes.COUNTER} component={CounterPage} />
+      <Route path={routes.PEOPLE} component={PeopleContainer} />
     </Switch>
   </App>
 );

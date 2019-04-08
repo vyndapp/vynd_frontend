@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from "react";
 import photon from "./photon.css";
-import PeopleView from "./PeopleView";
 import NavBar from "./NavBar";
 import ToolBar from "./ToolBar";
 import GridInfiniteScroll from "./GridInfiniteScroll";
@@ -21,12 +20,8 @@ export default class VideoGallery extends Component<Props> {
             </div>
             <div className={photon.pane}>
               <ToolBar />
-              <Grommet>
-                <GridInfiniteScroll />
-              </Grommet>
             </div>
             <div className={photon["pane-sm"] + " " + photon.sidebar}>
-              <PeopleView />
             </div>
           </div>
         </div>
