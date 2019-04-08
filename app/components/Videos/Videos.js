@@ -10,11 +10,12 @@ ToDo:
 *preprocessing fade cann't point to it
 *lazy loading
 *some styling to make the image look like video ex: play icon
+*change VideoId to actual videoId
 */
 const videos = () => {
   const allItems = Array(100)
     .fill()
-    .map((_, i) => <Video key={i}/>);
+    .map((_, i) => <Video key={i} videoId={i}/>);
   return (
   <ul className={classes.VideoList}>
     { allItems }

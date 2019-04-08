@@ -1,11 +1,14 @@
 import React from 'react';
 import classes from './Video.css';
+import { Link } from 'react-router-dom';
 
-const video = () => {
+const video = props => {
   return (
-    <li className={classes.VideoItem}>
-      <img src="https://via.placeholder.com/350x150" />
-    </li>
+    <Link to={`/video/${props.videoId}`}>
+      <li className={classes.VideoItem}>
+        <img src="https://via.placeholder.com/350x150" />
+      </li>
+    </Link>
   );
 };
 

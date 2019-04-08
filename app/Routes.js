@@ -6,14 +6,16 @@ import HomePage from './containers/HomePage';
 import CounterPage from './containers/CounterPage';
 import VideoGalleryContainer from './containers/VideoGalleryContainer';
 import PeopleContainer from './containers/PeopleContainer';
+import VideoPage from './containers/VideoPage';
 
 export default () => (
   <App>
     <Switch>
-      <Route exact path={routes.HOME} component={HomePage} />
+      <Route path={routes.Video} component={VideoPage}/>
       <Route path={routes.GALLERY} component={VideoGalleryContainer} />
       <Route path={routes.COUNTER} component={CounterPage} />
       <Route path={routes.PEOPLE} component={PeopleContainer} />
+      <Route path={routes.HOME} component={HomePage} />
     </Switch>
   </App>
 );
