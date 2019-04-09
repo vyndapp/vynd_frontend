@@ -12,7 +12,7 @@ ToDo:
 *some styling to make the image look like video ex: play icon
 */
 const videos = () => {
-  const allItems = Array(100)
+  const allItems = Array(99)
     .fill()
     .map((_, i) => <Video key={i}/>);
   return (

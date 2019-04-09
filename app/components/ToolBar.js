@@ -10,19 +10,20 @@ const toolbarStyle = {
 const searchInputStyle = {
   color: "white",
   maxWidth: 200,
-  minHeight: 24,
-  height: 24,
+  minHeight: 27,
+  height: 27,
   boxShadow: "0px 0px 0px",
   backgroundColor: "#fff0",
   border: "none",
-  borderBottom: "2px solid #e2e2e2",
+  borderBottom: "1px solid #e2e2e2",
   borderRadius: 0,
   fontSize: "15px"
 };
 
 const searchIconStyle = {
   paddingLeft: "5px",
-  borderBottom: "2px solid #E2E2E2",
+  borderBottom: "1px solid #E2E2E2",
+  paddingTop: "4px",
   paddingBottom: "2px",
   marginLeft: "5px"
 };

@@ -20,6 +20,7 @@ export default class VideoGallery extends Component<Props> {
             </div>
             <div className={photon.pane}>
               <ToolBar />
+              <h1>This is the People page</h1>
             </div>
             <div className={photon["pane-sm"] + " " + photon.sidebar}>
             </div>
