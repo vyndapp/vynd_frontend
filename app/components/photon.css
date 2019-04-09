@@ -525,6 +525,7 @@ h6 {
   background-image: linear-gradient(to bottom, #e8e6e8 0%, #d1cfd1 100%); */
   
   /* background-color: #1b1a1a; */
+
   /* background: linear-gradient(to bottom, rgb(45, 43, 42) 0%, rgba(0, 0, 0, 0.86) 5%, rgb(0, 0, 0) 6%, #1f1f1f 100%); */
 }
 .toolbar::before, .toolbar::after {
@@ -537,6 +538,7 @@ h6 {
 
 .toolbar-header {
   /* border-bottom: 1px solid #c2c0c2; */
+
   /* border-bottom: 1px solid #2d2d2d; */
 }
 .toolbar-header .title {
@@ -774,6 +776,7 @@ img {
 }
 .nav-group-item:active, .nav-group-item.active {
   /* background-color: #dcdfe1; */
+
   /* background-color: rgb(31, 31, 31); */
   background-color: rgba(0, 0, 0, 0.25);
   color: rgb(226, 226, 226);
