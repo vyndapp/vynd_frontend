@@ -1,6 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import classes from './dropZone.css';
+import classes from './DropZone.css';
 
 const dropZone = ({ children }) => (
   <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>

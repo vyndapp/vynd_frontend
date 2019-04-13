@@ -9,7 +9,7 @@ import { Grommet } from 'grommet';
 import { isAbsolute } from 'upath';
 import Videos from './Videos/Videos';
 import classes from './VideoGallery.css';
-import DropZone from './dropZone/dropZone';
+import DropZone from './DropZone/DropZone';
 
 export default class VideoGallery extends Component<Props> {
   props: Props;
