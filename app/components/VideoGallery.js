@@ -7,7 +7,7 @@ import ToolBar from './ToolBar';
 import GridInfiniteScroll from './GridInfiniteScroll';
 import { Grommet } from 'grommet';
 import { isAbsolute } from 'upath';
-import Videos from './Videos/Videos';
+import VideoThumbnails from './VideoThumbnails/VideoThumbnails';
 import classes from './VideoGallery.css';
 import DropZone from './DropZone/DropZone';
 
@@ -27,7 +27,7 @@ export default class VideoGallery extends Component<Props> {
 
         <div className={classes.VideosDiv}>
           <DropZone>
-            <Videos />
+            <VideoThumbnails />
           </DropZone>
         </div>
 
