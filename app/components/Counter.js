@@ -1,30 +1,32 @@
 // @flow
-import React, { Component } from "react";
-import photon from "./photon.css";
-import NavBar from "./NavBar";
-import ToolBar from "./ToolBar";
-import GridInfiniteScroll from "./GridInfiniteScroll";
-import { Grommet } from "grommet";
-import { isAbsolute } from "upath";
+import React, { Component } from 'react';
+import photon from './photon.css';
+import PeopleView from './PeopleView';
+import NavBar from './NavBar';
+import ToolBar from './ToolBar';
+import Videos from './Videos/Videos';
+import classes from './VideoGallery.css';
+import DropZone from './dropZone/dropZone';
 
 export default class VideoGallery extends Component<Props> {
   props: Props;
 
   render() {
     return (
-      <div className={photon.window}>
-        <div className={photon["window-content"]}>
-          <div className={photon["pane-group"]}>
-            <div className={photon["pane-sm"] + " " + photon.sidebar}>
-              <NavBar />
-            </div>
-            <div className={photon.pane}>
-              <ToolBar />
-              <h1>This is the counter page</h1>
-            </div>
-            <div className={photon["pane-sm"] + " " + photon.sidebar}>
-            </div>
-          </div>
+      <div className={classes.Container}>
+        <div className={classes.NavBar}>
+          <NavBar />
+        </div>
+
+        <div className={classes.ToolBar}>
+          <ToolBar />
+        </div>
+
+        <div className={classes.VideosDiv}>
+          <h1>This is the Counter.js page.</h1>
+        </div>
+
+        <div className={classes.PeopleBar}>
         </div>
       </div>
     );

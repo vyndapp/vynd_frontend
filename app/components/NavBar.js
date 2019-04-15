@@ -18,7 +18,7 @@ export default class NavBar extends Component<Props> {
       </span>
       </Link>
 
-      <Link to={routes.GALLERY}>
+      <Link to={routes.COUNTER}>
       <span className={photon["nav-group-item"]}>
         <span className={photon.icon + " " + photon["icon-video"]} />
         Videos

@@ -354,21 +354,21 @@ h6 {
   border-left-color: #c2c0c2; */
 
   color: #e2e2e2;
-  border-top-color: #923600;
-  border-right-color: #923600;
-  border-bottom-color: #923600;
-  border-left-color: #923600;
+  border-top-color: #e2e2e2;
+  border-right-color: #e2e2e2;
+  border-bottom-color: #e2e2e2;
+  border-left-color: #e2e2e2;
   border-radius: 15px;
   background-color: #fcfcfc;
+  background-image: linear-gradient(to bottom, #2b2727 0%, #000000 100%);
 
   /* background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fcfcfc), color-stop(100%, #f1f1f1));
   background-image: -webkit-linear-gradient(top, #fcfcfc 0%, #f1f1f1 100%);
   background-image: linear-gradient(to bottom, #fcfcfc 0%, #f1f1f1 100%); */
-  background-image: linear-gradient(to bottom, #f90 0%, #8a2d00 100%);
 }
 .btn-default:active {
   /* background-color: #ddd; */
-  background-color: #ec8e00;
+  background-color: #2e2e2e;
   background-image: none;
 }
 
