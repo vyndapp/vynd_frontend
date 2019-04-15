@@ -4,7 +4,6 @@ import photon from './photon.css';
 import PeopleView from './PeopleView';
 import NavBar from './NavBar';
 import ToolBar from './ToolBar';
-import Videos from './Videos/Videos';
 import classes from './VideoGallery.css';
 import DropZone from './dropZone/dropZone';
 
