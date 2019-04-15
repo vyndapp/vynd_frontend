@@ -1,11 +1,11 @@
 import React from 'react';
-import Video from './Video/Video';
-import classes from './Videos.css';
+import VideoThumbnail from './VideoThumbnail/VideoThumbnail';
+import classes from './Videothumbnails.css';
 
 const videos = () => {
-  const allItems = Array(99)
+  const allItems = Array(20)
     .fill()
-    .map((_, i) => <Video key={i} videoId={i} />);
+    .map((_, i) => <VideoThumbnail key={i} videoId={i} ready />);
   return (
     <ul className={classes.VideoList}>
       {allItems}

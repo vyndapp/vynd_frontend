@@ -4,9 +4,16 @@ import photon from './photon.css';
 import PeopleView from './PeopleView';
 import NavBar from './NavBar';
 import ToolBar from './ToolBar';
+<<<<<<< HEAD
 import Videos from './Videos/Videos';
+=======
+import GridInfiniteScroll from './GridInfiniteScroll';
+import { Grommet } from 'grommet';
+import { isAbsolute } from 'upath';
+import VideoThumbnails from './VideoThumbnails/VideoThumbnails';
+>>>>>>> 678176b5eff9345f3870abcf2b9686548f1429ba
 import classes from './VideoGallery.css';
-import DropZone from './dropZone/dropZone';
+import DropZone from './DropZone/DropZone';
 
 export default class VideoGallery extends Component<Props> {
   props: Props;
@@ -24,7 +31,7 @@ export default class VideoGallery extends Component<Props> {
 
         <div className={classes.VideosDiv}>
           <DropZone>
-            <Videos />
+            <VideoThumbnails />
           </DropZone>
         </div>
 
