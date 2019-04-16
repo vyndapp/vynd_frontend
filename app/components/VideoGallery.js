@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import photon from './photon.css';
-import PeopleView from './PeopleView';
 import NavBar from './NavBar';
 import ToolBar from './ToolBar';
 import GridInfiniteScroll from './GridInfiniteScroll';
@@ -10,6 +9,8 @@ import { isAbsolute } from 'upath';
 import VideoThumbnails from './VideoThumbnails/VideoThumbnails';
 import classes from './VideoGallery.css';
 import DropZone from './DropZone/DropZone';
+import Persons from './Persons/Persons';
+import Title from './Title/Title';
 
 export default class VideoGallery extends Component<Props> {
   props: Props;
@@ -32,7 +33,8 @@ export default class VideoGallery extends Component<Props> {
         </div>
 
         <div className={classes.PeopleBar}>
-          <PeopleView />
+          <Title>People</Title>
+          <Persons />
         </div>
       </div>
     );
