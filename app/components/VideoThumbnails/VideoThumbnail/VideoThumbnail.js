@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import VideoPreview from './VideoPreview/VideoPreview';
 
 type Props = {};
-class Video extends Component<Props> {
+class VideoThumbnail extends Component<Props> {
   props: Props;
   state = {
     downloaded: false
@@ -41,4 +41,4 @@ class Video extends Component<Props> {
   }
 }
 
-export default Video;
+export default VideoThumbnail;

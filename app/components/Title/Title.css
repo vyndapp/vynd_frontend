@@ -1,0 +1,8 @@
+.Title {
+  color: #e2e2e2;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 35px 0 5px 15px;
+  cursor: default;
+  white-space: nowrap;
+}

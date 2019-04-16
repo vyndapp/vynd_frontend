@@ -2,7 +2,7 @@ import React from 'react';
 import VideoThumbnail from './VideoThumbnail/VideoThumbnail';
 import classes from './Videothumbnails.css';
 
-const videos = () => {
+const videothumbnails = () => {
   const allItems = Array(20)
     .fill()
     .map((_, i) => <VideoThumbnail key={i} videoId={i} ready />);
@@ -16,4 +16,4 @@ const videos = () => {
   );
 };
 
-export default videos;
+export default videothumbnails;
