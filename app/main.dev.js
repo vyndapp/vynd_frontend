@@ -10,10 +10,11 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+import fs from 'fs-extra';
 
 export default class AppUpdater {
   constructor() {
@@ -102,4 +103,39 @@ app.on('ready', async () => {
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
   new AppUpdater();
+});
+
+function copyVideoFiles(videoPath) {
+  try {
+    if (!fs.existsSync(/*'path/foldername'*/)){
+      fs.mkdirSync(/*'path/foldername'*/)
+    }
+  } catch (err) {
+    console.error(err)
+  }
+  
+  var copyFile = (file, dir2)=>{
+      //include the fs, path modules
+      var fs = require('fs');
+      var path = require('path');
+    
+      //gets file name and adds it to dir2
+      var f = path.basename(file);
+      var source = fs.createReadStream(file);
+      var dest = fs.createWriteStream(path.resolve(dir2, f));
+    
+      source.pipe(dest);
+      source.on('end', function() { console.log('Succesfully copied'); });
+      source.on('error', function(err) { console.log(err); });
+  };
+  
+  // Change OUTPUT path --->
+  copyFile(videoPath, '/Users/HeshamSaleh/Desktop/Videos');
+}
+
+ipcMain.on('videos:added', (event, videos) => {
+  videos.forEach(function(video) {
+      console.log(video.path)
+      copyVideoFiles(video.path)
+  });
 });
