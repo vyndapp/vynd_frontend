@@ -10,8 +10,14 @@ const dropZone = ({ children }) => (
     const videos = _.map(files, ({ name, path, size, type }) => {
       return { name, path, size, type };
     });
-
-    ipcRenderer.send('videos:added', videos);
+    
+    // react-dropzone version error handler. (To be removed)
+    if(videos[0].name === videos[0].path ) {
+      let errMessage = "Please uninstall react-dropzone and npm install --save react-dropzone@8.0.0";
+      ipcRenderer.send('videos:error', errMessage)
+    } else {
+      ipcRenderer.send('videos:added', videos);
+    }
   
   }}>
     {({ getRootProps }) => (
