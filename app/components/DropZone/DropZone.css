@@ -1,3 +1,7 @@
-div:focus {
-  outline: 0 solid transparent;
+.DropZone ul:hover li {
+  pointer-events: auto;
+}
+
+.DropZone ul li {
+  pointer-events: none;
 }

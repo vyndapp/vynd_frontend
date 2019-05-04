@@ -1,31 +1,74 @@
-import _ from 'lodash';
-import React from 'react';
-import Dropzone from 'react-dropzone';
+import React, { Component } from 'react';
 import classes from './DropZone.css';
-import { ipcRenderer } from 'electron';
 
-const dropZone = ({ children }) => (
+const ACCEPTED_FILETYPE = 'video';
 
-  <Dropzone onDrop={files => {
-    const videos = _.map(files, ({ name, path, size, type }) => {
-      return { name, path, size, type };
-    });
-    
-    // react-dropzone version error handler. (To be removed)
-    if(videos[0].name === videos[0].path ) {
-      let errMessage = "Please uninstall react-dropzone and npm install --save react-dropzone@8.0.0";
-      ipcRenderer.send('videos:error', errMessage)
-    } else {
-      ipcRenderer.send('videos:added', videos);
-    }
-  
-  }}>
-    {({ getRootProps }) => (
-      <div className={classes.Dropzone} {...getRootProps()}>
-        {children}
+class DropZone extends Component<Props> {
+  props: Props;
+
+  constructor(props) {
+    super(props);
+    this.state = { isDragActive: false, isDragAccept: false };
+  }
+
+  onDragEnter = event => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    let fileAccepted = Object.keys(event.dataTransfer.items).reduce(
+      (accumulator, curIdx) => {
+        return (
+          accumulator ||
+          event.dataTransfer.items[curIdx].type.startsWith(ACCEPTED_FILETYPE)
+        );
+      },
+      false
+    );
+    this.setState({ isDragActive: true, isDragAccept: fileAccepted });
+  };
+
+  onDragOver = event => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.dataTransfer.dropEffect = this.state.isDragAccept ? 'move' : 'none';
+  };
+
+  onDrop = event => {
+    event.preventDefault();
+    event.stopPropagation();
+    const files = event.dataTransfer.files;
+    const array = this.fileListToArray(files);
+    console.log('Drop zone received those files');
+    console.log(array);
+    this.setState({ isDragActive: false, isDragAccept: false });
+  };
+
+  fileListToArray = files => {
+    const array = Array.from(files).filter(item =>
+      item.type.startsWith(ACCEPTED_FILETYPE)
+    );
+    return array;
+  };
+
+  onDragLeave = event => {
+    event.preventDefault();
+    event.stopPropagation();
+    this.setState({ isDragActive: false, isDragAccept: false });
+  };
+
+  render() {
+    return (
+      <div
+        onDragEnter={this.onDragEnter}
+        onDragOver={this.onDragOver}
+        onDrop={this.onDrop}
+        onDragLeave={this.onDragLeave}
+        className={classes.DropZone}
+      >
+        {this.props.children}
       </div>
-    )}
-  </Dropzone>
-);
+    );
+  }
+}
 
-export default dropZone;
+export default DropZone;
