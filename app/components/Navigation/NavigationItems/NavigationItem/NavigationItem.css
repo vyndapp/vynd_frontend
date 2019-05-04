@@ -1,0 +1,43 @@
+.NavigationItem {
+  display: flex;
+  align-items: center;
+  padding: 2px 10px 2px 25px;
+}
+
+.NavigationItem * {
+  cursor: pointer;
+}
+
+.NavigationItem h5 {
+  color: #646464;
+  margin: 0;
+}
+
+.ActiveItem {
+  background-color: #00000040;
+}
+
+.ActiveItem h5 {
+  color: #e2e2e2;
+}
+
+.NavigationItem span {
+  width: 19px;
+  height: 18px;
+  font-size: 18px;
+  color: #737475;
+  margin: -10px 7px 0 0;
+  font-family: 'photon-entypo';
+}
+
+.Home::before {
+  content: '\E821';
+}
+
+.Videos::before {
+  content: '\E80D';
+}
+
+.People::before {
+  content: '\E80B';
+}
