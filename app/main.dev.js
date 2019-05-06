@@ -133,10 +133,6 @@ function copyVideoFiles(videoPath) {
   copyFile(videoPath, '/Users/HeshamSaleh/Desktop/Videos');
 }
 
-ipcMain.on('videos:error', (event, errMessage) => {
-  console.log('ERROR IMPORTING VIDEO(S). ' + errMessage);
-});
-
 ipcMain.on('videos:added', (event, videos) => {
   videos.forEach(function(video) {
       copyVideoFiles(video.path)

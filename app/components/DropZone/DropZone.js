@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import classes from './DropZone.css';
+import { ipcRenderer } from 'electron';
+import _ from 'lodash';
 
 const ACCEPTED_FILETYPE = 'video';
 
@@ -37,16 +39,17 @@ class DropZone extends Component<Props> {
     event.preventDefault();
     event.stopPropagation();
     const files = event.dataTransfer.files;
-    const array = this.fileListToArray(files);
+    const videos = this.fileListToArray(files);
+    ipcRenderer.send('videos:added', videos);
     console.log('Drop zone received those files');
-    console.log(array);
+    console.log(videos);
     this.setState({ isDragActive: false, isDragAccept: false });
   };
 
   fileListToArray = files => {
-    const array = Array.from(files).filter(item =>
-      item.type.startsWith(ACCEPTED_FILETYPE)
-    );
+    const array = _.map(files, ({ name, path, size, type }) => {
+      return { name, path, size, type };
+    });
     return array;
   };
 
