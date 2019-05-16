@@ -7,6 +7,7 @@ import ToolBar from './ToolBar';
 import classes from './VideoGallery.css';
 import DropZone from './dropZone/dropZone';
 import NavigationBar from './Navigation/NavigationBar';
+import Persons from './Persons/Persons';
 
 export default class VideoGallery extends Component<Props> {
   props: Props;
@@ -22,7 +23,10 @@ export default class VideoGallery extends Component<Props> {
           <ToolBar />
         </div>
 
-        <div className={classes.VideosDiv} />
+        <div className={classes.VideosDiv} >
+          <Persons/>
+        </div>
+        
 
         <div className={classes.PeopleBar} />
       </div>
