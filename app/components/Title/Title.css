@@ -6,9 +6,10 @@
   /* margin: 35px 0 5px 15px; */
   cursor: default;
   white-space: nowrap;
-  margin: 0 0 5px 15px;
+  margin: 0 0 5px 0px;
   padding-top: 35px;
   padding-bottom: 10px;
+  padding-left: 15px;
   position: sticky;
   top: 0;
   background-color: #1b1a1a;

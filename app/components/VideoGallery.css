@@ -4,7 +4,7 @@
 }
 
 .ToolBar {
-  grid-area: ToolBar;
+  grid-area: toolBar;
   background: linear-gradient(to bottom, #101010 20%, #1b1a1a 60%, #1f1f1f 100%);
 }
 
@@ -23,9 +23,9 @@
 .Container {
   height: 100vh;
   display: grid;
-  grid-template-columns: 150px auto 150px;
+  grid-template-columns: 120px auto 200px;
   grid-template-rows: 70px auto;
   grid-template-areas:
-    'navBar ToolBar peopleBar'
+    'navBar toolBar peopleBar'
     'navBar videosDiv peopleBar';
 }
