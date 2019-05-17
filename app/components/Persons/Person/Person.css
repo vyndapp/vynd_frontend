@@ -1,6 +1,6 @@
 .Person {
-  margin: 5px auto 0 auto;
-  width: 65%;
+  width: 70px;
+  margin: 5px 20px 5px 20px;
   cursor: pointer;
 }
 
@@ -25,3 +25,4 @@
   text-overflow: ellipsis;
   cursor: pointer;
 }
+

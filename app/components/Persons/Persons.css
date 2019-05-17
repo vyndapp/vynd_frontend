@@ -3,4 +3,10 @@
   flex-wrap: wrap;
   margin: 0;
   padding: 0;
+  justify-content: space-around;
+}
+
+.PlaceHolder {
+  width: 70px;
+  margin: 5px 20px 5px 20px;
 }
