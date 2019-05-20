@@ -15,6 +15,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import fs from 'fs-extra';
+import { PythonShell } from 'python-shell';
 
 export default class AppUpdater {
   constructor() {
@@ -72,8 +73,8 @@ app.on('ready', async () => {
     show: false,
     width: 930,
     height: 600,
-    minWidth: 700,
-    minHeight: 300,
+    minWidth: 750,
+    minHeight: 400,
     titleBarStyle: 'hidden'
   });
 
@@ -105,6 +106,10 @@ app.on('ready', async () => {
   new AppUpdater();
 });
 
+
+var path = require('path');
+const videosDirectoryPath = path.join(__dirname, 'videos')
+
 function copyVideoFiles(videoPath) {
   try {
     if (!fs.existsSync(/*'path/foldername'*/)){
@@ -115,10 +120,7 @@ function copyVideoFiles(videoPath) {
   }
   
   var copyFile = (file, dir2)=>{
-      //include the fs, path modules
-      var fs = require('fs');
-      var path = require('path');
-    
+
       //gets file name and adds it to dir2
       var f = path.basename(file);
       var source = fs.createReadStream(file);
@@ -130,11 +132,55 @@ function copyVideoFiles(videoPath) {
   };
   
   // Change OUTPUT path --->
-  copyFile(videoPath, '/Users/HeshamSaleh/Desktop/Videos');
+  copyFile(videoPath, videosDirectoryPath);
 }
 
 ipcMain.on('videos:added', (event, videos) => {
+
+  var videoArray = [];
   videos.forEach(function(video) {
-      copyVideoFiles(video.path)
+    copyVideoFiles(video.path)
+    videoArray.push(video.name)
   });
+
+  videoArray.forEach(function(video) {
+    extractFramesFromVideo(video)
+  });
+
 });
+
+function extractFramesFromVideo(file) {
+  
+  const scriptPath = path.join(__dirname, 'scripts');
+  const videoPath = path.join(__dirname, `videos/${file}`)
+  const framesPath = path.join(__dirname, `frames/${file}`)
+
+  let options = {
+    mode: 'text',
+    pythonPath: '/Library/Frameworks/Python.framework/Versions/3.6/bin/Python3',
+    pythonOptions: ['-u'], // get print results in real-time
+    scriptPath: scriptPath,
+    args: [videoPath, framesPath]
+  };
+
+  // Grab files from videos folder, and execute Python script
+  PythonShell.run('process.py', options, function (err, results) {
+    if (err) throw err;
+    // results is an array consisting of messages collected during execution
+    console.log('results: %j', results);
+  });
+}
+
+// // passing directoryPath and callback function
+// fs.readdir(videosDirectoryPath, function (err, files) {
+
+//     //handling error
+//     if (err) {
+//         return console.log('Unable to scan directory: ' + err);
+//     } 
+
+//     // TO DO: Mark processed videos with a boolean
+//     files.forEach(function (file) {
+//         extractFramesFromVideo(file);
+//     });
+// });

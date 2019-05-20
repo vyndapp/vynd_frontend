@@ -23,7 +23,7 @@ export default class VideoView extends Component<Props> {
           </div>
 
           <div className={classes.VideoDiv}>
-              <img src="https://via.placeholder.com/600x360"/>
+              <img width="95%" src="https://via.placeholder.com/600x360"/>
               < Tags />
               <h5>Video ID:{this.props.videoID}</h5>
           </div>
