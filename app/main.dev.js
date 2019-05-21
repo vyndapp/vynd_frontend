@@ -91,6 +91,8 @@ app.on('ready', async () => {
     } else {
       mainWindow.show();
       mainWindow.focus();
+
+      retrieveVideos();
     }
   });
 
@@ -105,7 +107,6 @@ app.on('ready', async () => {
   // eslint-disable-next-line
   new AppUpdater();
 });
-
 
 var path = require('path');
 const videosDirectoryPath = path.join(__dirname, 'videos')
@@ -130,8 +131,7 @@ function copyVideoFiles(videoPath) {
       source.on('end', function() { console.log('Succesfully copied'); });
       source.on('error', function(err) { console.log(err); });
   };
-  
-  // Change OUTPUT path --->
+
   copyFile(videoPath, videosDirectoryPath);
 }
 
@@ -142,6 +142,8 @@ ipcMain.on('videos:added', (event, videos) => {
     copyVideoFiles(video.path)
     videoArray.push(video.name)
   });
+
+  retrieveVideos();
 
   videoArray.forEach(function(video) {
     extractFramesFromVideo(video)
@@ -163,7 +165,7 @@ function extractFramesFromVideo(file) {
     args: [videoPath, framesPath]
   };
 
-  // Grab files from videos folder, and execute Python script
+  // Grab files from videos directory, and execute Python script
   PythonShell.run('process.py', options, function (err, results) {
     if (err) throw err;
     // results is an array consisting of messages collected during execution
@@ -171,16 +173,21 @@ function extractFramesFromVideo(file) {
   });
 }
 
-// // passing directoryPath and callback function
-// fs.readdir(videosDirectoryPath, function (err, files) {
+function retrieveVideos() {
 
-//     //handling error
-//     if (err) {
-//         return console.log('Unable to scan directory: ' + err);
-//     } 
+  // passing directoryPath and callback function
+  fs.readdir(videosDirectoryPath, function (err, videos) {
+        
+    //handling error
+    if (err) {
+      return console.log('Unable to scan directory: ' + err);
+    }
 
-//     // TO DO: Mark processed videos with a boolean
-//     files.forEach(function (file) {
-//         extractFramesFromVideo(file);
-//     });
-// });
+    const framesPath = path.join(__dirname, 'frames');
+
+    mainWindow.webContents.send('frames:path', framesPath);
+    mainWindow.webContents.send('videos:path', videosDirectoryPath);
+    mainWindow.webContents.send('videos:retrieved', videos);
+  });
+
+}

@@ -20,15 +20,15 @@ class VideoThumbnail extends Component<Props> {
     if (this.props.ready && this.state.downloaded) {
       video = (
         <Link to={`/video/${this.props.videoId}`}>
-          <VideoPreview videoId={this.props.videoId} />
-          <img src="https://via.placeholder.com/350x150" />
+          <VideoPreview videoId={this.props.videoId} directoryPath={this.props.directoryPath} videoName={this.props.videoName}/>
+          <img src={this.props.placeholderImage} />
         </Link>
       );
     } else {
       video = (
         <img
           className={this.props.ready ? null : classes.Loading}
-          src="https://via.placeholder.com/350x150"
+          src={this.props.placeholderImage}
         />
       );
     }
