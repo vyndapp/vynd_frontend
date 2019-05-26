@@ -1,0 +1,61 @@
+.ToolBar {
+  display: flex;
+  margin: 28px 0 6px 0;
+  padding: 0 15px 3px 15px;
+  align-items: flex-end;
+}
+.SearchIcon {
+  font-family: 'photon-entypo';
+  color: #ffffff;
+  font-size: 13px;
+  margin-left: 5px;
+  border-bottom: 1px solid #e2e2e2;
+  padding: 4px 0 2px 5px;
+  line-height: 1.6;
+}
+
+.SearchIcon::before {
+  content: '\E803';
+}
+
+.SearchBox {
+  width: 200px;
+  height: 27px;
+  background-color: #ffffff00;
+  border-right: none;
+  border-top: none;
+  border-left: none;
+  border-bottom: 1px solid #e2e2e2;
+  padding: 5px 10px;
+  font-size: 15px;
+  margin-right: auto;
+  cursor: text;
+}
+.SearchBox:focus {
+  outline: none;
+}
+.ImportButton {
+  margin: 5px 5px 0 0;
+  padding: 2px 8px;
+  border: 1px solid #e2e2e2;
+  border-radius: 15px;
+  background-color: #fcfcfc;
+  color: #e2e2e2;
+  font-size: 12px;
+  line-height: 1.4;
+  background-image: linear-gradient(to bottom, #2b2727 0%, #000 100%);
+  cursor: pointer;
+}
+
+.ImportIcon {
+  font-family: 'photon-entypo';
+  width: 14px;
+  height: 14px;
+  margin: 1px 2px 1px 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.ImportIcon::before {
+  content: '\E82D';
+}

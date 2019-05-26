@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import photon from './photon.css';
 import NavBar from './NavBar';
-import ToolBar from './ToolBar';
+import ToolBar from './ToolBar/ToolBar';
 import VideoThumbnails from './VideoThumbnails/VideoThumbnails';
 import classes from './VideoGallery.css';
 import DropZone from './DropZone/DropZone';
