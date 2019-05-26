@@ -1,67 +1,33 @@
 // @flow
-import React, { Component } from "react";
-import photon from "./photon.css";
+import React, { Component } from 'react';
+import photon from './photon.css';
+import PeopleView from './PeopleView';
+import NavBar from './NavBar';
+import ToolBar from './ToolBar/ToolBar';
+import classes from './VideoGallery.css';
+import DropZone from './dropZone/dropZone';
+import NavigationBar from './Navigation/NavigationBar';
+import Persons from './Persons/Persons';
 
-const peopleViewStyle = {
-  backgroundColor: "#1b1a1a",
-  width: "100%",
-  height: "100%",
-  overflow: "auto"
-};
-
-const imgStyle = {
-  margin: "5px 5px 0px 5px"
-};
-
-const divStyle = {
-  textAlign: "center",
-  backgroundColor: "#1b1a1a"
-};
-
-const nameStyle = {
-  color: "rgb(160, 160, 160)",
-  display: "block",
-  marginTop: 0,
-  marginBottom: 5
-};
-
-const peopleLbl = {
-  position: "sticky",
-  top: 0,
-  backgroundColor: "#1b1a1a"
-};
-
-export default class PeopleView extends Component<Props> {
+export default class VideoGallery extends Component<Props> {
   props: Props;
-
-  createPeopleDivs = () => {
-    const people = [];
-
-    for (let i = 0; i < 10; i++) {
-      people.push(
-        <div style={divStyle}>
-          <img
-            className={photon["img-circle"] + " " + photon["media-object"]}
-            style={imgStyle}
-            src="https://www.placecage.com/400/360"
-            height="70px"
-            width="70px"
-          />
-          <h5 style={nameStyle}>Nicholas Cage</h5>
-        </div>
-      );
-    }
-
-    return people;
-  };
 
   render() {
     return (
-      <div style={peopleViewStyle}>
-        <div style={peopleLbl}>
-          <h5 className={photon["nav-group-title"]}>People</h5>
+      <div className={classes.Container}>
+        <div className={classes.NavBar}>
+          <NavigationBar />
         </div>
-        {this.createPeopleDivs()}
+
+        <div className={classes.ToolBar}>
+          <ToolBar />
+        </div>
+
+        <div className={classes.VideosDiv}>
+          <Persons />
+        </div>
+
+        <div className={classes.PeopleBar} />
       </div>
     );
   }
