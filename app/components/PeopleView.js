@@ -1,8 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import photon from './photon.css';
-import PeopleView from './PeopleView';
-import NavBar from './NavBar';
 import ToolBar from './ToolBar/ToolBar';
 import classes from './VideoGallery.css';
 import DropZone from './dropZone/dropZone';

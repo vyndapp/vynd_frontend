@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import People from '../components/People';
+import PeopleView from '../components/PeopleView';
 
 type Props = {};
 
@@ -8,6 +8,6 @@ export default class PeopleContainer extends Component<Props> {
   props: Props;
 
   render() {
-    return <People />;
+    return <PeopleView />;
   }
 }
