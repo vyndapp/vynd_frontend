@@ -22,7 +22,7 @@ export default class VideoGallery extends Component<Props> {
         </div>
 
         <div className={classes.VideosDiv}>
-          <Persons />
+          <Persons personIds={this.props.personIds} />
         </div>
 
         <div className={classes.PeopleBar} />
