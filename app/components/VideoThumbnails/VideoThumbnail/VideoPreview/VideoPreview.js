@@ -22,8 +22,6 @@ class VideoPreview extends Component<Props> {
     this.videoRef.currentTime = 0;
   };
   render() {
-    var link = `${this.props.directoryPath}/${this.props.videoName}`;
-
     return (
       <video
         ref={curRef => (this.videoRef = curRef)}
@@ -31,8 +29,7 @@ class VideoPreview extends Component<Props> {
         onMouseOver={this.playVideo}
         muted
       >
-        {/* <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" /> */}
-        <source src={link} />
+        <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
       </video>
     );
   }
