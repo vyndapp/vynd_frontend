@@ -109,68 +109,90 @@ app.on('ready', async () => {
 });
 
 var path = require('path');
-const videosDirectoryPath = path.join(__dirname, 'videos')
 
-function copyVideoFiles(videoPath) {
-  try {
-    if (!fs.existsSync(/*'path/foldername'*/)){
-      fs.mkdirSync(/*'path/foldername'*/)
-    }
-  } catch (err) {
-    console.error(err)
-  }
-  
-  var copyFile = (file, dir2)=>{
-
-      //gets file name and adds it to dir2
-      var f = path.basename(file);
-      var source = fs.createReadStream(file);
-      var dest = fs.createWriteStream(path.resolve(dir2, f));
-    
-      source.pipe(dest);
-      source.on('end', function() { console.log('Succesfully copied'); });
-      source.on('error', function(err) { console.log(err); });
-  };
-
-  copyFile(videoPath, videosDirectoryPath);
+//Creating Data Folders Structure
+const createDataEnvironment = () => {
+  fs.mkdirSync(path.join(__dirname, '/Data'));
+  fs.mkdirSync(path.join(__dirname, '/Data/Videos'));
+  fs.mkdirSync(path.join(__dirname, '/Data/Persons'));
+};
+ 
+// Checking For New User
+if (fs.existsSync(path.join(__dirname, '/Data')) === false) {
+  createDataEnvironment();
 }
 
+const videosDirectoryPath = path.join(__dirname, '/Data/Videos')
+
+const copyVideo = (videoPath, videoId) => {
+  const videoExt = path.extname(videoPath);
+  fs.copyFileSync(
+    videoPath,
+    path.join(__dirname, `/Data/Videos/${videoId}${videoExt}`)
+  );
+
+  return `${videoId}${videoExt}`
+};
+
+// will remove after merging backend with frontend
+const getNewIdForTest = () => {
+  setTimeout(() => {}, 1000);
+  const today = new Date();
+  return (
+    today.getMonth() +
+    '.' +
+    today.getHours() +
+    '.' +
+    today.getMinutes() +
+    '.' +
+    today.getSeconds()
+  );
+};
+
 ipcMain.on('videos:added', (event, videos) => {
+  videos.forEach(video => {
 
-  var videoArray = [];
-  videos.forEach(function(video) {
-    copyVideoFiles(video.path)
-    videoArray.push(video.name)
+    var videoArray = [];
+
+    let videoName = copyVideo(video.path, getNewIdForTest());
+    videoArray.push(videoName);
+
+    retrieveVideos();
+    
+    videoArray.forEach(function(video) {
+      extractFramesFromVideo(video)
+    });
+
   });
-
-  retrieveVideos();
-
-  videoArray.forEach(function(video) {
-    extractFramesFromVideo(video)
-  });
-
 });
+
+let b64JsonArr = []
 
 function extractFramesFromVideo(file) {
   
   const scriptPath = path.join(__dirname, 'scripts');
-  const videoPath = path.join(__dirname, `videos/${file}`)
-  const framesPath = path.join(__dirname, `frames/${file}`)
+  const videoPath = path.join(__dirname, `/Data/Videos/${file}`)
 
   let options = {
     mode: 'text',
     pythonPath: '/Library/Frameworks/Python.framework/Versions/3.6/bin/Python3',
     pythonOptions: ['-u'], // get print results in real-time
     scriptPath: scriptPath,
-    args: [videoPath, framesPath]
+    args: [videoPath]
   };
 
   // Grab files from videos directory, and execute Python script
   PythonShell.run('process.py', options, function (err, results) {
     if (err) throw err;
+
     // results is an array consisting of messages collected during execution
-    console.log('results: %j', results);
+    results.forEach(b64 => {
+      b64JsonArr.push(JSON.parse(b64))
+    })
+
+    console.log(b64JsonArr)
   });
+
 }
 
 function retrieveVideos() {
@@ -183,9 +205,6 @@ function retrieveVideos() {
       return console.log('Unable to scan directory: ' + err);
     }
 
-    const framesPath = path.join(__dirname, 'frames');
-
-    mainWindow.webContents.send('frames:path', framesPath);
     mainWindow.webContents.send('videos:path', videosDirectoryPath);
     mainWindow.webContents.send('videos:retrieved', videos);
   });
