@@ -25,13 +25,13 @@ export default class VideoGallery extends Component<Props> {
 
         <div className={classes.VideosDiv}>
           <DropZone>
-            <VideoThumbnails />
+            <VideoThumbnails videoIds={this.props.videoIds} />
           </DropZone>
         </div>
 
         <div className={classes.PeopleBar}>
           <Title>People</Title>
-          <Persons />
+          <Persons personIds={this.props.personIds} />
         </div>
       </div>
     );
