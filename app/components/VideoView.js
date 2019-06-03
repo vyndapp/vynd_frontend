@@ -30,7 +30,7 @@ export default class VideoView extends Component<Props> {
 
         <div className={classes.VideosBar}>
           <Title>Related Videos</Title>
-          <VideoThumbnails />
+          <VideoThumbnails videoIds={this.props.videoIds} />
         </div>
       </div>
     );
