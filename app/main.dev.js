@@ -125,13 +125,15 @@ if (fs.existsSync(path.join(__dirname, '/Data')) === false) {
 const videosDirectoryPath = path.join(__dirname, '/Data/Videos')
 
 const copyVideo = (videoPath, videoId) => {
+  fs.mkdirSync(path.join(__dirname, `Data/Videos/${videoId}`));
   const videoExt = path.extname(videoPath);
   fs.copyFileSync(
     videoPath,
-    path.join(__dirname, `/Data/Videos/${videoId}${videoExt}`)
+    path.join(__dirname, `Data/Videos/${videoId}/Video${videoExt}`)
   );
 
-  return `${videoId}${videoExt}`
+  let videoDetails = [`${videoId}/Video${videoExt}`, `${videoId}`]
+  return videoDetails
 };
 
 // will remove after merging backend with frontend
@@ -152,14 +154,14 @@ const getNewIdForTest = () => {
 ipcMain.on('videos:added', (event, videos) => {
   videos.forEach(video => {
 
-    var videoArray = [];
+    var videoDetailsArray = [];
 
-    let videoName = copyVideo(video.path, getNewIdForTest());
-    videoArray.push(videoName);
+    let videoDetails = copyVideo(video.path, getNewIdForTest());
+    videoDetailsArray.push(videoDetails);
 
     retrieveVideos();
     
-    videoArray.forEach(function(video) {
+    videoDetailsArray.forEach(function(video) {
       extractFramesFromVideo(video)
     });
 
@@ -168,17 +170,18 @@ ipcMain.on('videos:added', (event, videos) => {
 
 let b64JsonArr = []
 
-function extractFramesFromVideo(file) {
+function extractFramesFromVideo(videoDetails) {
   
   const scriptPath = path.join(__dirname, 'scripts');
-  const videoPath = path.join(__dirname, `/Data/Videos/${file}`)
+  const videoPath = path.join(__dirname, `/Data/Videos/${videoDetails[0]}`)
+  const imagePath = path.join(__dirname, `/Data/Videos/${videoDetails[1]}`)
 
   let options = {
     mode: 'text',
     pythonPath: '/Library/Frameworks/Python.framework/Versions/3.6/bin/Python3',
     pythonOptions: ['-u'], // get print results in real-time
     scriptPath: scriptPath,
-    args: [videoPath]
+    args: [videoPath, imagePath]
   };
 
   // Grab files from videos directory, and execute Python script

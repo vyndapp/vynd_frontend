@@ -1,4 +1,4 @@
-def video_to_frames(input_loc):
+def video_to_frames(input_loc, output_loc):
   import time
   import cv2
   import os
@@ -35,7 +35,8 @@ def video_to_frames(input_loc):
   success = True
   count = 1
   frame = cv2.resize(frame, (448, 448))
-  
+  cv2.imwrite(output_loc + "/placeholder.jpg", frame)
+
   frameTimeInSecs = round(count/fps,2)
   string = np_to_b64(frame)
   stringArr.append('{{ \"frame\":\"{}\", \"time\":\"{}\" }}'.format(string, frameTimeInSecs))
@@ -71,5 +72,6 @@ def video_to_frames(input_loc):
 import sys
 
 video = sys.argv[1]
+directory = sys.argv[2]
 
-video_to_frames(video)
+video_to_frames(video, directory)
