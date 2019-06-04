@@ -91,8 +91,6 @@ app.on('ready', async () => {
     } else {
       mainWindow.show();
       mainWindow.focus();
-
-      retrieveVideos();
     }
   });
 
