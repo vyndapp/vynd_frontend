@@ -132,8 +132,8 @@ const copyVideo = (videoPath, videoId) => {
     path.join(__dirname, `Data/Videos/${videoId}/Video${videoExt}`)
   );
 
-  let videoDetails = [`${videoId}/Video${videoExt}`, `${videoId}`]
-  return videoDetails
+  let videoDetails = [videoId, videoExt]
+  return videoIdAndExt
 };
 
 // will remove after merging backend with frontend
@@ -154,14 +154,14 @@ const getNewIdForTest = () => {
 ipcMain.on('videos:added', (event, videos) => {
   videos.forEach(video => {
 
-    var videoDetailsArray = [];
+    var videoIdAndExtArray = [];
 
-    let videoDetails = copyVideo(video.path, getNewIdForTest());
-    videoDetailsArray.push(videoDetails);
+    let videoIdAndExt = copyVideo(video.path, getNewIdForTest());
 
-    retrieveVideos();
+    retrieveVideo(videoIdAndExt);
+    videoIdAndExtArray.push(videoIdAndExt);
     
-    videoDetailsArray.forEach(function(video) {
+    videoIdAndExtArray.forEach(function(video) {
       extractFramesFromVideo(video)
     });
 
@@ -170,11 +170,11 @@ ipcMain.on('videos:added', (event, videos) => {
 
 let b64JsonArr = []
 
-function extractFramesFromVideo(videoDetails) {
+function extractFramesFromVideo(videoIdAndExt) {
   
   const scriptPath = path.join(__dirname, 'scripts');
-  const videoPath = path.join(__dirname, `/Data/Videos/${videoDetails[0]}`)
-  const imagePath = path.join(__dirname, `/Data/Videos/${videoDetails[1]}`)
+  const videoPath = path.join(__dirname, `/Data/Videos/${videoIdAndExt[0]}/Video${videoIdAndExt[1]}`)
+  const imagePath = path.join(__dirname, `/Data/Videos/${videoIdAndExt[0]}`)
 
   let options = {
     mode: 'text',
@@ -198,18 +198,6 @@ function extractFramesFromVideo(videoDetails) {
 
 }
 
-function retrieveVideos() {
-
-  // passing directoryPath and callback function
-  fs.readdir(videosDirectoryPath, function (err, videos) {
-        
-    //handling error
-    if (err) {
-      return console.log('Unable to scan directory: ' + err);
-    }
-
-    mainWindow.webContents.send('videos:path', videosDirectoryPath);
-    mainWindow.webContents.send('videos:retrieved', videos);
-  });
-
+function retrieveVideo(videoIdAndExt) {
+  mainWindow.webContents.send('videos:retrieved', videoIdAndExt);
 }
