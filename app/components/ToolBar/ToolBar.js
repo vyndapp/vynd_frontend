@@ -7,7 +7,7 @@ const ToolBar = props => {
     <div className={classes.ToolBar}>
       <span className={classes.SearchIcon} />
 
-      <SearchBox />
+      <SearchBox searchAction={props.searchAction} />
 
       <button className={classes.ImportButton}>
         <span className={classes.ImportIcon} /> Import
