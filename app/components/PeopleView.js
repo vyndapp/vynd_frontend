@@ -1,32 +1,15 @@
 // @flow
-import React, { Component } from 'react';
-import photon from './photon.css';
-import ToolBar from './ToolBar/ToolBar';
-import classes from './VideoGallery.css';
-import DropZone from './dropZone/dropZone';
-import NavigationBar from './Navigation/NavigationBar';
+import React from 'react';
 import Persons from './Persons/Persons';
+import Layout from '../hoc/Layout/Layout';
 
-export default class VideoGallery extends Component<Props> {
-  props: Props;
-
-  render() {
-    return (
-      <div className={classes.Container}>
-        <div className={classes.NavBar}>
-          <NavigationBar />
-        </div>
-
-        <div className={classes.ToolBar}>
-          <ToolBar />
-        </div>
-
-        <div className={classes.VideosDiv}>
-          <Persons personIds={this.props.personIds} />
-        </div>
-
-        <div className={classes.PeopleBar} />
-      </div>
-    );
-  }
-}
+const PeopleView = props => {
+  return (
+    <Layout
+      showNavigationBar
+      showToolBar
+      mainSceneContent={<Persons personIds={props.personIds} />}
+    />
+  );
+};
+export default PeopleView;
