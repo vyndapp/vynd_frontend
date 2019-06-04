@@ -1,3 +1,5 @@
+import axios from '../axios';
+
 export const INIT_VIDEOIDS = 'INIT_VIDEOIDS';
 export const ADD_VIDEOID = 'ADD_VIDEOID';
 
@@ -12,5 +14,14 @@ export const addVideoId = videoId => {
   return {
     type: ADD_VIDEOID,
     videoId
+  };
+};
+
+export const searchVideoName = () => {
+  return async dispatch => {
+    // Actual request will be done here
+    const newVideoIds = await axios.get('/videosId.json');
+    console.log(newVideoIds);
+    dispatch(initVideoIds([1, 2, 3]));
   };
 };

@@ -1,6 +1,7 @@
 import * as actionTypes from '../actions/persons';
 
 const initialState = {
+  allPersonIds: [],
   personIds: []
 };
 
@@ -9,7 +10,8 @@ const person = (state = initialState, action) => {
     case actionTypes.INIT_PERSONIDS:
       return {
         ...state,
-        personIds: action.personIds
+        personIds: action.personIds,
+        allPersonIds: action.personIds
       };
     case actionTypes.ADD_PERSONID:
       return {
@@ -17,7 +19,16 @@ const person = (state = initialState, action) => {
         personIds: state.personIds.concat({
           personId: action.personId,
           personName: action.personName
+        }),
+        allPersonIds: state.allPersonIds.concat({
+          personId: action.personId,
+          personName: action.personName
         })
+      };
+    case actionTypes.SEARCH_PERSON_NAME:
+      return {
+        ...state,
+        personIds: action.searchedPersonIds
       };
   }
   return state;

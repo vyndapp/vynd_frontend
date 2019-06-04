@@ -23,8 +23,7 @@ class SearchBox extends Component<Props> {
     }
   };
   handleBlur = event => {
-    // put search action here
-    console.log(this.state.inputValue);
+    this.props.searchAction(this.state.inputValue);
   };
 
   render() {

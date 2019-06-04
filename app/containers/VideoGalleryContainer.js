@@ -37,6 +37,7 @@ class VideoGalleryContainer extends Component<Props> {
   render() {
     return (
       <VideoGallery
+        searchAction={this.props.searchVideoName}
         personIds={this.props.personIds}
         videoIds={this.props.videoIds}
       />

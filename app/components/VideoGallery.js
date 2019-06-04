@@ -8,6 +8,7 @@ import Layout from '../hoc/Layout/layout';
 const VideoGallery = props => {
   return (
     <Layout
+      searchAction={props.searchAction}
       showNavigationBar
       showToolBar
       mainSceneContent={
