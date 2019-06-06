@@ -1,6 +1,7 @@
 export const INIT_PERSONIDS = 'INIT_PERSONIDS';
 export const ADD_PERSONID = 'ADD_PERSONID';
 export const SEARCH_PERSON_NAME = 'SEARCH_PERSON_NAME';
+export const RENAME_PERSON = 'RENAME_PERSON';
 
 export const initPersonIds = personIds => {
   return {
@@ -14,6 +15,26 @@ export const addPersonId = ({ personId, personName }) => {
     type: ADD_PERSONID,
     personId,
     personName
+  };
+};
+
+export const renamePerson = ({ personId, newPersonName }) => {
+  return (dispatch, getState) => {
+    const newAllPersonIds = getState().persons.allPersonIds.map(person => {
+      if (person.personId === personId) {
+        return { personId: personId, personName: newPersonName };
+      } else {
+        return { ...person };
+      }
+    });
+    const newPersonIds = getState().persons.personIds.map(person => {
+      if (person.personId === personId) {
+        return { personId: personId, personName: newPersonName };
+      } else {
+        return { ...person };
+      }
+    });
+    dispatch({ type: RENAME_PERSON, newPersonIds, newAllPersonIds });
   };
 };
 

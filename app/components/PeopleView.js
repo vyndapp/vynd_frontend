@@ -9,7 +9,13 @@ const PeopleView = props => {
       searchAction={props.searchAction}
       showNavigationBar
       showToolBar
-      mainSceneContent={<Persons personIds={props.personIds} />}
+      mainSceneContent={
+        <Persons
+          fullView
+          personIds={props.personIds}
+          renameAction={props.renameAction}
+        />
+      }
     />
   );
 };

@@ -5,9 +5,11 @@ import classes from './Persons.css';
 const Persons = props => {
   const allItems = props.personIds.map((person, i) => (
     <Person
+      fullView={props.fullView}
       key={person.personId}
       personId={person.personId}
       personName={person.personName}
+      renameAction={props.renameAction}
     />
   ));
   return (

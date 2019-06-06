@@ -25,6 +25,12 @@ const person = (state = initialState, action) => {
           personName: action.personName
         })
       };
+    case actionTypes.RENAME_PERSON:
+      return {
+        ...state,
+        personIds: action.newPersonIds,
+        allPersonIds: action.newAllPersonIds
+      };
     case actionTypes.SEARCH_PERSON_NAME:
       return {
         ...state,

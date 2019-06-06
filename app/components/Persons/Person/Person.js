@@ -1,16 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classes from './Person.css';
 import { Link } from 'react-router-dom';
+import Modal from '../../UI/Modal/Modal';
+import Input from '../../UI/Input/Input';
 
-const Person = props => {
-  return (
-    <li className={classes.Person}>
-      <Link to="/">
-        <img src="https://www.placecage.com/400/360" />
-        <h5>{props.personName}</h5>
-      </Link>
-    </li>
-  );
-};
+type Props = {};
+
+class Person extends Component<Props> {
+  props: Props;
+  state = {
+    renaming: false
+  };
+  openRenaming = () => {
+    event.preventDefault();
+    this.setState({
+      renaming: true
+    });
+  };
+  closeRenaming = () => {
+    this.setState({
+      renaming: false
+    });
+  };
+  render() {
+    return (
+      <li className={classes.Person} onContextMenu={this.openRenaming}>
+        <Link to="/">
+          <img src="https://www.placecage.com/400/360" />
+          <h5>{this.props.personName}</h5>
+        </Link>
+        {this.props.fullView ? (
+          <Modal show={this.state.renaming} modalClosed={this.closeRenaming}>
+            <Input
+              personId={this.props.personId}
+              inputClosed={this.closeRenaming}
+              renameAction={this.props.renameAction}
+            />
+          </Modal>
+        ) : null}
+      </li>
+    );
+  }
+}
 
 export default Person;

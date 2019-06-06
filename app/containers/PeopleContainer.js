@@ -31,6 +31,7 @@ class PeopleContainer extends Component<Props> {
       <PeopleView
         personIds={this.props.personIds}
         searchAction={this.props.searchPersonName}
+        renameAction={this.props.renamePerson}
       />
     );
   }
