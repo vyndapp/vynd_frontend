@@ -24,7 +24,11 @@ class Person extends Component<Props> {
   };
   render() {
     return (
-      <li className={classes.Person} onContextMenu={this.openRenaming}>
+      <li
+        className={classes.Person}
+        onContextMenu={this.openRenaming}
+        title={this.props.personName}
+      >
         <Link to="/">
           <img src="https://www.placecage.com/400/360" />
           <h5>{this.props.personName}</h5>
