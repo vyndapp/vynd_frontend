@@ -16,7 +16,7 @@ class PeopleContainer extends Component<Props> {
       <Layout
         showNavigationBar
         showToolBar
-        searchAction={this.props.searchAction}
+        searchAction={this.props.searchPersonName}
         mainSceneContent={<Persons fullView />}
       />
     );

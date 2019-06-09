@@ -36,6 +36,7 @@ class Person extends Component<Props> {
         {this.props.fullView ? (
           <Modal show={this.state.renaming} modalClosed={this.closeRenaming}>
             <Input
+              intialValue={this.props.personName}
               personId={this.props.personId}
               inputClosed={this.closeRenaming}
               renameAction={this.props.renameAction}

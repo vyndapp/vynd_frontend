@@ -4,8 +4,8 @@
   grid-template-columns: 120px auto 200px;
   grid-template-rows: 70px auto;
   grid-template-areas:
-    'navBar toolBar peopleBar'
-    'navBar videosDiv peopleBar';
+    'navBar toolBar sideBar'
+    'navBar mainView sideBar';
 }
 
 .NavBar {
@@ -23,12 +23,13 @@
   );
 }
 .mainView {
-  grid-area: videosDiv;
+  grid-area: mainView;
   background-color: #1f1f1f;
   overflow: auto;
 }
 .sideBar {
-  grid-area: peopleBar;
+  flex-direction: column;
+  grid-area: sideBar;
   background-color: #1b1a1a;
   overflow: auto;
 }

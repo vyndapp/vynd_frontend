@@ -1,3 +1,8 @@
+.DropZone {
+  width: 100%;
+  height: 100%;
+}
+
 .DropZone ul:hover li {
   pointer-events: auto;
 }

@@ -33,14 +33,13 @@ class Persons extends Component<Props> {
     });
   }
   render() {
-    console.log(this.state.loading);
-    const allItems = this.props.personIds.map((person, i) => (
+    const allItems = this.props.personIds.map(person => (
       <Person
         fullView={this.props.fullView}
         key={person.personId}
         personId={person.personId}
         personName={person.personName}
-        renameAction={this.props.renameAction}
+        renameAction={this.props.renamePerson}
       />
     ));
     const normalView = (

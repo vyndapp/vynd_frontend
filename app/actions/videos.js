@@ -21,7 +21,6 @@ export const searchVideoName = () => {
   return async dispatch => {
     // Actual request will be done here
     const newVideoIds = await axios.get('/videosId.json');
-    console.log(newVideoIds);
     dispatch(initVideoIds([1, 2, 3]));
   };
 };

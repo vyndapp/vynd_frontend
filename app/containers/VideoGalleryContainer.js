@@ -15,7 +15,7 @@ class VideoGalleryContainer extends Component<Props> {
   render() {
     return (
       <Layout
-        searchAction={this.props.searchAction}
+        searchAction={this.props.searchVideoName}
         showNavigationBar
         showToolBar
         mainSceneContent={<VideoThumbnails />}

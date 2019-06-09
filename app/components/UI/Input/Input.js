@@ -30,6 +30,11 @@ class Input extends Component<Props> {
     });
     // this.personID change to this.state.inputValue
   };
+  componentDidMount() {
+    this.setState({
+      inputValue: this.props.intialValue
+    });
+  }
 
   render() {
     return (
