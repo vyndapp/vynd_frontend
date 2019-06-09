@@ -16,6 +16,7 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import fs from 'fs-extra';
 import { PythonShell } from 'python-shell';
+import axios from 'axios';
 
 export default class AppUpdater {
   constructor() {
@@ -130,7 +131,7 @@ const copyVideo = (videoPath, videoId) => {
     path.join(__dirname, `Data/Videos/${videoId}/Video${videoExt}`)
   );
 
-  let videoDetails = [videoId, videoExt]
+  let videoIdAndExt = [videoId, videoExt]
   return videoIdAndExt
 };
 
@@ -150,29 +151,33 @@ const getNewIdForTest = () => {
 };
 
 ipcMain.on('videos:added', (event, videos) => {
-  videos.forEach(video => {
 
-    var videoIdAndExtArray = [];
+  let videoIdAndExtArray = [];
+
+  videos.forEach(video => {
 
     let videoIdAndExt = copyVideo(video.path, getNewIdForTest());
 
     retrieveVideo(videoIdAndExt);
-    videoIdAndExtArray.push(videoIdAndExt);
-    
-    videoIdAndExtArray.forEach(function(video) {
-      extractFramesFromVideo(video)
-    });
 
+    videoIdAndExtArray.push(videoIdAndExt);
   });
+
+  videoIdAndExtArray.forEach(video => {
+    extractFramesFromVideo(video)
+  });
+
 });
 
-let b64JsonArr = []
+// let b64JsonArr = []
+let base64Strings = []
 
 function extractFramesFromVideo(videoIdAndExt) {
   
   const scriptPath = path.join(__dirname, 'scripts');
   const videoPath = path.join(__dirname, `/Data/Videos/${videoIdAndExt[0]}/Video${videoIdAndExt[1]}`)
   const imagePath = path.join(__dirname, `/Data/Videos/${videoIdAndExt[0]}`)
+  base64Strings = []
 
   let options = {
     mode: 'text',
@@ -187,15 +192,31 @@ function extractFramesFromVideo(videoIdAndExt) {
     if (err) throw err;
 
     // results is an array consisting of messages collected during execution
+    // results.forEach(b64 => {
+    //   b64JsonArr.push(JSON.parse(b64))
+    // })
+
     results.forEach(b64 => {
-      b64JsonArr.push(JSON.parse(b64))
+      base64Strings.push(b64)
     })
 
-    console.log(b64JsonArr)
+    // axios({
+    //   method: 'post',
+    //   url: 'https://a6ac51f0.ngrok.io/api/process-keyframes',
+    //   data: {
+    //     video_id: '5cf66ec745edec000a106f3a',
+    //     base64_images: base64Strings
+    //   }
+    // });
+
+    console.log(base64Strings.length)
+    //console.log(base64Strings)
   });
 
 }
 
 function retrieveVideo(videoIdAndExt) {
   mainWindow.webContents.send('videos:retrieved', videoIdAndExt);
+
+  //console.log(videoIdAndExt)
 }
