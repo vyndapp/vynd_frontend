@@ -1,19 +1,17 @@
 import React from 'react';
 import classes from './ToolBar.css';
 import SearchBox from './SearchBox/SearchBox';
+import ImportButton from './Import/ImportButton';
 
-const ToolBar = props => {
+const toolBar = props => {
   return (
     <div className={classes.ToolBar}>
       <span className={classes.SearchIcon} />
 
       <SearchBox searchAction={props.searchAction} />
-
-      <button className={classes.ImportButton}>
-        <span className={classes.ImportIcon} /> Import
-      </button>
+      <ImportButton />
     </div>
   );
 };
 
-export default ToolBar;
+export default toolBar;
