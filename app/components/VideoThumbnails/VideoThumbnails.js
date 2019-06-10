@@ -4,7 +4,6 @@ import classes from './Videothumbnails.css';
 import * as VideosActions from '../../actions/videos';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import axios from '../../axios';
 import Spinner from '../UI/Spinner/Spinner';
 import DropZone from '../DropZone/DropZone';
 
@@ -17,11 +16,15 @@ class VideoThumbnails extends Component<Props> {
   };
 
   async componentDidMount() {
-    this.setState({
-      loading: true
-    });
-    const res = await axios.get('/videoIds.json');
-    this.props.initVideoIds(res.data);
+    if (this.props.init) {
+      this.setState({
+        loading: true
+      });
+      this.props.initVideoIds();
+      this.setState({
+        loading: false
+      });
+    }
     this.setState({
       loading: false
     });

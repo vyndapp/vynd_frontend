@@ -1,12 +1,21 @@
+import axios from '../axios';
+
 export const INIT_PERSONIDS = 'INIT_PERSONIDS';
 export const ADD_PERSONID = 'ADD_PERSONID';
 export const SEARCH_PERSON_NAME = 'SEARCH_PERSON_NAME';
 export const RENAME_PERSON = 'RENAME_PERSON';
 
-export const initPersonIds = personIds => {
-  return {
-    type: INIT_PERSONIDS,
-    personIds
+export const initPersonIds = () => {
+  return async dispatch => {
+    const res = await axios.get('/personIds.json');
+    const personIds = [];
+    for (let i = 0; i < res.data.length; i++) {
+      let str = res.data[i];
+      str = str.replace(/\'/g, '"');
+      const parsed = JSON.parse(str);
+      personIds.push(parsed);
+    }
+    dispatch({ type: INIT_PERSONIDS, personIds });
   };
 };
 

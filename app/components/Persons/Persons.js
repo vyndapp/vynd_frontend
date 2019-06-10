@@ -4,7 +4,6 @@ import classes from './Persons.css';
 import * as PersonsActions from '../../actions/persons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import axios from '../../axios';
 import Spinner from '../UI/Spinner/Spinner';
 
 type Props = {};
@@ -18,16 +17,8 @@ class Persons extends Component<Props> {
     this.setState({
       loading: true
     });
-    const res = await axios.get('/personIds.json');
 
-    const arr = [];
-    for (let i = 0; i < res.data.length; i++) {
-      let str = res.data[i];
-      str = str.replace(/\'/g, '"');
-      const parsed = JSON.parse(str);
-      arr.push(parsed);
-    }
-    this.props.initPersonIds(arr);
+    this.props.initPersonIds();
     this.setState({
       loading: false
     });
