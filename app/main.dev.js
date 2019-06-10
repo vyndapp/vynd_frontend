@@ -17,7 +17,7 @@ import MenuBuilder from './menu';
 import fs from 'fs-extra';
 import { PythonShell } from 'python-shell';
 // import axios from './axios';
-import axios from 'axios';
+import axios from './axios';
 
 export default class AppUpdater {
   constructor() {
@@ -140,7 +140,7 @@ async function getVideoId(videoPath) {
   const videoExt = path.extname(videoPath);
   const response = await axios({
     method: 'post',
-    url: 'https://5bfd217e.ngrok.io/api/add-new-video',
+    url: 'api/add-new-video',
     data: {
       extension: videoExt
     }
@@ -201,15 +201,14 @@ function extractFramesFromVideo(videoIdAndExt) {
 
     axios({
       method: 'post',
-      url: 'https://5bfd217e.ngrok.io/api/process-keyframes',
+      url: 'api/process-keyframes',
       data: {
         video_id: videoIdAndExt[0],
         base64_images: base64Strings
       }
     });
-
   });
-
+  
 }
 
 function retrieveVideo(videoIdAndExt) {
