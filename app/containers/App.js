@@ -13,7 +13,6 @@ class App extends React.Component<Props> {
   props: Props;
 
   componentDidMount() {
-    console.log('componentDidMount');
     ipcRenderer.on('videos:retrieved', (event, videoIdAndExt) => {
       console.log('call redux for addVideoId');
       this.props.addVideoId({

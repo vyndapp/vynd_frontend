@@ -25,5 +25,7 @@
 }
 
 .CustomFileInput {
-  opacity: 0;
+  display: none;
+  height: 0px;
+  width: 0px;
 }

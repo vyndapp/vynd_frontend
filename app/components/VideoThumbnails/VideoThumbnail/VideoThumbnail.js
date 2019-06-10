@@ -19,19 +19,27 @@ class VideoThumbnail extends Component<Props> {
     let video;
     if (this.props.ready && this.state.downloaded) {
       video = (
-        <Link to={`/video/${this.props.videoId}`}>
+        <Link
+          replace
+          to={{
+            pathname: `/video/${this.props.videoId}`,
+            state: {
+              videoExt: this.props.videoExt
+            }
+          }}
+        >
           <VideoPreview
             videoId={this.props.videoId}
             videoExt={this.props.videoExt}
           />
-          <img src={`./Data/Videos/${this.props.videoId}/placeHolder.jpg`} />
+          <img src={`./Data/Videos/${this.props.videoId}/placeholder.jpg`} />
         </Link>
       );
     } else {
       video = (
         <img
           className={this.props.ready ? null : classes.Loading}
-          src={`./Data/Videos/${this.props.videoId}/placeHolder.jpg`}
+          src={`./Data/Videos/${this.props.videoId}/placeholder.jpg`}
         />
       );
     }
