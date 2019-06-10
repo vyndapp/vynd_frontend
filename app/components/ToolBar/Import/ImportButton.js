@@ -8,7 +8,7 @@ const importFiles = event => {
   const files = event.target.files;
   const videos = fileListToArray(files);
   console.log(videos);
-  // ipcRenderer.send('videos:added', videos);
+  ipcRenderer.send('videos:added', videos);
 };
 
 const fileListToArray = files => {

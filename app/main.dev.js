@@ -16,6 +16,7 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import fs from 'fs-extra';
 import { PythonShell } from 'python-shell';
+// import axios from './axios';
 import axios from 'axios';
 
 export default class AppUpdater {
@@ -131,37 +132,35 @@ const copyVideo = (videoPath, videoId) => {
     path.join(__dirname, `Data/Videos/${videoId}/Video${videoExt}`)
   );
 
-  let videoIdAndExt = [videoId, videoExt]
-  return videoIdAndExt
+  let videoIdAndExt = [videoId, videoExt];
+  return videoIdAndExt;
 };
 
-// will remove after merging backend with frontend
-const getNewIdForTest = () => {
-  setTimeout(() => {}, 1000);
-  const today = new Date();
-  return (
-    today.getMonth() +
-    '.' +
-    today.getHours() +
-    '.' +
-    today.getMinutes() +
-    '.' +
-    today.getSeconds()
-  );
-};
+async function getVideoId(videoPath) {
+  const videoExt = path.extname(videoPath);
+  const response = await axios({
+    method: 'post',
+    url: 'https://5bfd217e.ngrok.io/api/add-new-video',
+    data: {
+      extension: videoExt
+    }
+  });
 
-ipcMain.on('videos:added', (event, videos) => {
+  return response.data.video_id;
+}
 
-  let videoIdAndExtArray = [];
+ipcMain.on('videos:added', async (event, videos) => {
 
-  videos.forEach(video => {
-
-    let videoIdAndExt = copyVideo(video.path, getNewIdForTest());
+  let getVideoIdAndExt = async video => {
+    let videoId = await getVideoId(video.path);
+    let videoIdAndExt = copyVideo(video.path, videoId);
 
     retrieveVideo(videoIdAndExt);
 
-    videoIdAndExtArray.push(videoIdAndExt);
-  });
+    return videoIdAndExt;
+  };
+
+  let videoIdAndExtArray = await Promise.all(videos.map(async video => getVideoIdAndExt(video)));
 
   videoIdAndExtArray.forEach(video => {
     extractFramesFromVideo(video)
@@ -200,23 +199,19 @@ function extractFramesFromVideo(videoIdAndExt) {
       base64Strings.push(b64)
     })
 
-    // axios({
-    //   method: 'post',
-    //   url: 'https://725f4ada.ngrok.io/api/process-keyframes',
-    //   data: {
-    //     video_id: '5cf66ec745edec000a106f3a',
-    //     base64_images: base64Strings
-    //   }
-    // });
+    axios({
+      method: 'post',
+      url: 'https://5bfd217e.ngrok.io/api/process-keyframes',
+      data: {
+        video_id: videoIdAndExt[0],
+        base64_images: base64Strings
+      }
+    });
 
-    console.log(base64Strings.length)
-    //console.log(base64Strings)
   });
 
 }
 
 function retrieveVideo(videoIdAndExt) {
   mainWindow.webContents.send('videos:retrieved', videoIdAndExt);
-
-  //console.log(videoIdAndExt)
 }

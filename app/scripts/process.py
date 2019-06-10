@@ -7,7 +7,7 @@ def video_to_frames(input_loc, output_loc):
   from io import BytesIO
 
   # Set threshold [0.0 --> perfect match, 1.0 mismatch]
-  threshold = 0.15
+  threshold = 0.2
   variance = 45
   
   # Log the time
