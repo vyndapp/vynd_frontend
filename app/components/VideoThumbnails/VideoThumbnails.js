@@ -31,8 +31,13 @@ class VideoThumbnails extends Component<Props> {
   }
 
   render() {
-    const allItems = this.props.videoIds.map((videoId, i) => (
-      <VideoThumbnail key={videoId} videoId={videoId} ready />
+    const allItems = this.props.videoIds.map((video, i) => (
+      <VideoThumbnail
+        key={video.videoId}
+        videoId={video.videoId}
+        videoExt={video.videoExt}
+        ready
+      />
     ));
     const normalView = (
       <DropZone>

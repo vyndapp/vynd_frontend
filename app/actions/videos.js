@@ -5,11 +5,17 @@ export const ADD_VIDEOID = 'ADD_VIDEOID';
 
 export const initVideoIds = () => {
   return async dispatch => {
-    const res = await axios.get(
-      'https://vynd-5222f.firebaseio.com/videoIds.json'
-    );
-    const videoIds = res.data.concat();
+    const newRes = await axios.get('/api/get-processed-videos');
+    const videoIds = newRes.data.processed_videos_results.map(video => {
+      return { videoId: video.video_id, videoExt: video.extension };
+    });
     dispatch({ type: INIT_VIDEOIDS, videoIds });
+
+    // const res = await axios.get(
+    //   'https://vynd-5222f.firebaseio.com/videoIds.json'
+    // );
+    // const videoIds = res.data.concat();
+    // dispatch({ type: INIT_VIDEOIDS, videoIds });
   };
 };
 
