@@ -202,7 +202,7 @@ function extractFramesFromVideo(videoIdAndExt) {
 
     // axios({
     //   method: 'post',
-    //   url: 'https://a6ac51f0.ngrok.io/api/process-keyframes',
+    //   url: 'https://725f4ada.ngrok.io/api/process-keyframes',
     //   data: {
     //     video_id: '5cf66ec745edec000a106f3a',
     //     base64_images: base64Strings
