@@ -8,7 +8,7 @@ const toolBar = props => {
     <div className={classes.ToolBar}>
       <span className={classes.SearchIcon} />
 
-      <SearchBox searchAction={props.searchAction} />
+      <SearchBox person={props.person} searchAction={props.searchAction} />
       <ImportButton />
     </div>
   );
