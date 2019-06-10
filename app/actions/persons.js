@@ -7,15 +7,27 @@ export const RENAME_PERSON = 'RENAME_PERSON';
 
 export const initPersonIds = () => {
   return async dispatch => {
-    const res = await axios.get('/personIds.json');
-    const personIds = [];
-    for (let i = 0; i < res.data.length; i++) {
-      let str = res.data[i];
-      str = str.replace(/\'/g, '"');
-      const parsed = JSON.parse(str);
-      personIds.push(parsed);
-    }
+    const res = await axios.get('/api/get-faces');
+    const personIds = res.data.faces.map(person => {
+      return {
+        personId: person._id,
+        personName: person.name === null ? '' : person.name,
+        personImage: person.face_image
+      };
+    });
     dispatch({ type: INIT_PERSONIDS, personIds });
+
+    // const res = await axios.get(
+    //   'https://vynd-5222f.firebaseio.com/personIds.json'
+    // );
+    // const personIds = [];
+    // for (let i = 0; i < res.data.length; i++) {
+    //   let str = res.data[i];
+    //   str = str.replace(/\'/g, '"');
+    //   const parsed = JSON.parse(str);
+    //   personIds.push(parsed);
+    // }
+    // dispatch({ type: INIT_PERSONIDS, personIds });
   };
 };
 
@@ -38,7 +50,11 @@ export const renamePerson = ({ personId, newPersonName }) => {
     });
     const newPersonIds = getState().persons.personIds.map(person => {
       if (person.personId === personId) {
-        return { personId: personId, personName: newPersonName };
+        axios.post('/api/update-face', {
+          face_id: person.personId,
+          name: newPersonName
+        });
+        return { ...person, personName: newPersonName };
       } else {
         return { ...person };
       }

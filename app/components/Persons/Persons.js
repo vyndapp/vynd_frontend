@@ -18,7 +18,7 @@ class Persons extends Component<Props> {
       loading: true
     });
 
-    this.props.initPersonIds();
+    await this.props.initPersonIds();
     this.setState({
       loading: false
     });
@@ -30,6 +30,7 @@ class Persons extends Component<Props> {
         key={person.personId}
         personId={person.personId}
         personName={person.personName}
+        personImage={person.personImage}
         renameAction={this.props.renamePerson}
       />
     ));

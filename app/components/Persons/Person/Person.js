@@ -39,7 +39,7 @@ class Person extends Component<Props> {
             }
           }}
         >
-          <img src="https://www.placecage.com/400/360" />
+          <img src={`data:image/jpeg;base64, ${this.props.personImage}`} />
           <h5>{this.props.personName}</h5>
         </Link>
         {this.props.fullView ? (
