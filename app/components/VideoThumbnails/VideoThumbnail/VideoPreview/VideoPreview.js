@@ -23,7 +23,7 @@ class VideoPreview extends Component<Props> {
   };
   render() {
     return (
-      <video
+      <video className={classes.VideoPrev}
         ref={curRef => (this.videoRef = curRef)}
         onMouseLeave={this.pauseVideo}
         onMouseOver={this.playVideo}
