@@ -1,17 +1,29 @@
-def video_to_frames(input_loc, output_loc):
-  import time
-  import cv2
-  import os
-  import base64
-  from PIL import Image
-  from io import BytesIO
+from pymediainfo import MediaInfo
+import time
+import cv2
+import sys
+import os
+import base64
+from PIL import Image
+from io import BytesIO
 
+def get_rotation_angle(input_loc):
+  media = MediaInfo.parse(input_loc).to_data()
+  for track in media['tracks']:
+    if track['track_type'] == 'Video':
+      return int(float(track['rotation']))
+
+
+def video_to_frames(input_loc, output_loc):
+  
   # Set threshold [0.0 --> perfect match, 1.0 mismatch]
   threshold = 0.2
   variance = 45
   
   # Log the time
   time_start = time.time()
+
+  rotation_angle = get_rotation_angle(input_loc)
   
   # Start capturing the feed
   cap = cv2.VideoCapture(input_loc)
@@ -60,7 +72,14 @@ def video_to_frames(input_loc, output_loc):
 
     # If the histograms are not similar, save frame
     if comp > threshold and fm > variance:
+
       frame = cv2.resize(frame, (500, 500))
+
+      if rotation_angle != 0:
+        rows, cols, _ = frame.shape
+        M = cv2.getRotationMatrix2D((cols/2,rows/2), rotation_angle, 1)
+        frame = cv2.warpAffine(frame, M, (cols,rows))
+
       cv2.imwrite(output_loc + "/%#03d.jpg" % (count), frame, [int(cv2.IMWRITE_JPEG_QUALITY), 75])
       count += 1
       # frameTimeInSecs = round(count/fps,2)
@@ -78,8 +97,6 @@ def video_to_frames(input_loc, output_loc):
 
   for string in stringArr:
     print(string)
-
-import sys
 
 video = sys.argv[1]
 directory = sys.argv[2]

@@ -29,7 +29,11 @@ class VideoPreview extends Component<Props> {
         onMouseOver={this.playVideo}
         muted
       >
-        <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
+        <source
+          src={`./Data/Videos/${this.props.videoId}/Video${
+            this.props.videoExt
+          }`}
+        />
       </video>
     );
   }
