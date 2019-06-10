@@ -14,7 +14,10 @@ const videos = (state = initialState, action) => {
     case actionTypes.ADD_VIDEOID:
       return {
         ...state,
-        videoIds: state.videoIds.concat(action.videoId)
+        videoIds: state.videoIds.concat({
+          videoId: action.videoId,
+          videoExt: action.videoExt
+        })
       };
   }
   return state;

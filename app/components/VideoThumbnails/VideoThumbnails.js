@@ -20,7 +20,7 @@ class VideoThumbnails extends Component<Props> {
       this.setState({
         loading: true
       });
-      this.props.initVideoIds();
+      await this.props.initVideoIds();
       this.setState({
         loading: false
       });
