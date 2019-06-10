@@ -29,7 +29,16 @@ class Person extends Component<Props> {
         onContextMenu={this.openRenaming}
         title={this.props.personName}
       >
-        <Link to="/">
+        <Link
+          replace
+          to={{
+            pathname: '/gallery',
+            state: {
+              personName: this.props.personName,
+              personId: this.props.personId
+            }
+          }}
+        >
           <img src="https://www.placecage.com/400/360" />
           <h5>{this.props.personName}</h5>
         </Link>

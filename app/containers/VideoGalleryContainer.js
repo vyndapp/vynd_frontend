@@ -15,10 +15,13 @@ class VideoGalleryContainer extends Component<Props> {
   render() {
     return (
       <Layout
+        person={this.props.location.state}
         searchAction={this.props.searchVideoName}
         showNavigationBar
         showToolBar
-        mainSceneContent={<VideoThumbnails />}
+        mainSceneContent={
+          <VideoThumbnails init={this.props.location.state === undefined} />
+        }
         sideBarContent={<People />}
       />
     );

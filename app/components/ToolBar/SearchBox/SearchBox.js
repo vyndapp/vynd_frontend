@@ -26,6 +26,25 @@ class SearchBox extends Component<Props> {
     this.props.searchAction(this.state.inputValue);
   };
 
+  componentDidMount() {
+    if (this.props.person !== undefined) {
+      // we need to change this.props.person.personName to personId
+      this.props.searchAction(this.props.person.personName);
+      this.setState({
+        inputValue: this.props.person.personName
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.person !== prevProps.person) {
+      // we need to change this.props.person.personName to personId
+      this.props.searchAction(this.props.person.personName);
+      this.setState({
+        inputValue: this.props.person.personName
+      });
+    }
+  }
   render() {
     return (
       <input

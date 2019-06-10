@@ -13,7 +13,7 @@ const Layout = props => {
 
       <div className={classes.ToolBar}>
         {props.showToolBar ? (
-          <ToolBar searchAction={props.searchAction} />
+          <ToolBar searchAction={props.searchAction} person={props.person} />
         ) : null}
       </div>
 
