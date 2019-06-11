@@ -63,11 +63,11 @@ export const renamePerson = ({ personId, newPersonName }) => {
   };
 };
 
-export const searchPersonName = personName => {
+export const searchPersonName = ({ name }) => {
   return (dispatch, getState) => {
     let newPersonIds = getState().persons.allPersonIds.concat();
     newPersonIds = newPersonIds.filter(person =>
-      person.personName.toUpperCase().startsWith(personName.toUpperCase())
+      person.personName.toUpperCase().startsWith(name.toUpperCase())
     );
     dispatch({ type: SEARCH_PERSON_NAME, searchedPersonIds: newPersonIds });
   };
