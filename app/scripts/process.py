@@ -11,7 +11,8 @@ def get_rotation_angle(input_loc):
   media = MediaInfo.parse(input_loc).to_data()
   for track in media['tracks']:
     if track['track_type'] == 'Video':
-      return int(float(track['rotation']))
+      angle = int(float(track['rotation']))
+      return (360 - angle) % 360
 
 
 def video_to_frames(input_loc, output_loc):
