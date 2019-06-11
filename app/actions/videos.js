@@ -27,17 +27,22 @@ export const addVideoId = ({ videoId, videoExt }) => {
   };
 };
 
-export const searchVideoName = personName => {
+export const searchVideoName = person => {
   return async dispatch => {
-    // Actual request will be done here
-    const newVideoIds = await axios.get(
-      'https://vynd-5222f.firebaseio.com/videoIds.json'
-    );
-    const dummyIds = [1, 2, 3];
-    if (personName === '') {
-      dummyIds.push(4);
-      dummyIds.push(5);
+    try {
+      const res = await axios.get('/api/get-videos-of-face', {
+        params: {
+          ...person
+        }
+      });
+      const newVideoIds = res.data.videos.map(video => ({
+        videoExt: video.extension,
+        videoId: video.video_id
+      }));
+      dispatch({ type: INIT_VIDEOIDS, videoIds: newVideoIds });
+    } catch (err) {
+      console.log('Fail');
+      console.log(err);
     }
-    dispatch({ type: INIT_VIDEOIDS, videoIds: dummyIds });
   };
 };

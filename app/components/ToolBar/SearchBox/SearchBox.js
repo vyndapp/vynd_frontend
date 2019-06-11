@@ -23,13 +23,16 @@ class SearchBox extends Component<Props> {
     }
   };
   handleBlur = event => {
-    this.props.searchAction(this.state.inputValue);
+    this.props.searchAction({ name: this.state.inputValue });
   };
 
   componentDidMount() {
     if (this.props.person !== undefined) {
       // we need to change this.props.person.personName to personId
-      this.props.searchAction(this.props.person.personName);
+      this.props.person.personId !== undefined
+        ? this.props.searchAction({ face_id: this.props.person.personId })
+        : this.props.searchAction({ name: this.props.person.personName });
+
       this.setState({
         inputValue: this.props.person.personName
       });
@@ -39,7 +42,10 @@ class SearchBox extends Component<Props> {
   componentDidUpdate(prevProps) {
     if (this.props.person !== prevProps.person) {
       // we need to change this.props.person.personName to personId
-      this.props.searchAction(this.props.person.personName);
+      this.props.person.personId !== undefined
+        ? this.props.searchAction({ face_id: this.props.person.personId })
+        : this.props.searchAction({ name: this.props.person.personName });
+
       this.setState({
         inputValue: this.props.person.personName
       });
