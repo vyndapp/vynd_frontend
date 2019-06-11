@@ -150,7 +150,7 @@ async function getVideoId(videoPath) {
 }
 
 ipcMain.on('videos:added', async (event, videos) => {
-
+  
   let getVideoIdAndExt = async video => {
     let videoId = await getVideoId(video.path);
     let videoIdAndExt = copyVideo(video.path, videoId);
@@ -180,7 +180,7 @@ function extractFramesFromVideo(videoIdAndExt) {
 
   let options = {
     mode: 'text',
-    pythonPath: '/Library/Frameworks/Python.framework/Versions/3.6/bin/Python3',
+    pythonPath: '/Users/omarkhaled/Desktop/dev/vynd_frontend/env/bin/python',
     pythonOptions: ['-u'], // get print results in real-time
     scriptPath: scriptPath,
     args: [videoPath, imagePath]
@@ -193,11 +193,11 @@ function extractFramesFromVideo(videoIdAndExt) {
     // results is an array consisting of messages collected during execution
     // results.forEach(b64 => {
     //   b64JsonArr.push(JSON.parse(b64))
-    // })
+    // });
 
     results.forEach(b64 => {
       base64Strings.push(b64)
-    })
+    });
 
     axios({
       method: 'post',
@@ -206,9 +206,10 @@ function extractFramesFromVideo(videoIdAndExt) {
         video_id: videoIdAndExt[0],
         base64_images: base64Strings
       }
+    }).then(response => {
+      mainWindow.webContents.send('videos:processed');
     });
-  });
-  
+  })
 }
 
 function retrieveVideo(videoIdAndExt) {

@@ -1,0 +1,3 @@
+Pillow==5.0.0
+opencv-python==3.4.3.18
+pymediainfo==4.0
