@@ -24,16 +24,20 @@ class Persons extends Component<Props> {
     });
   }
   render() {
-    const allItems = this.props.personIds.map(person => (
-      <Person
-        fullView={this.props.fullView}
-        key={person.personId}
-        personId={person.personId}
-        personName={person.personName}
-        personImage={person.personImage}
-        renameAction={this.props.renamePerson}
-      />
-    ));
+    const sideView = this.props.fullView ? false : true;
+    const allItems = this.props.personIds.map(person => {
+      if (this.props.fullView || (sideView && person.personName !== ''))
+        return (
+          <Person
+            fullView={this.props.fullView}
+            key={person.personId}
+            personId={person.personId}
+            personName={person.personName}
+            personImage={person.personImage}
+            renameAction={this.props.renamePerson}
+          />
+        );
+    });
     const normalView = (
       <ul className={classes.PersonsList}>
         {allItems}
