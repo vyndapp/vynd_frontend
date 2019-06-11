@@ -10,10 +10,10 @@ from io import BytesIO
 def get_rotation_angle(input_loc):
   media = MediaInfo.parse(input_loc).to_data()
   for track in media['tracks']:
-    if track['track_type'] == 'Video':
+    if track['track_type'] == 'Video' and 'rotation' in track:
       angle = int(float(track['rotation']))
       return (360 - angle) % 360
-
+  return 0
 
 def video_to_frames(input_loc, output_loc):
   
@@ -53,6 +53,11 @@ def video_to_frames(input_loc, output_loc):
   success = True
   count = 1
   frame = cv2.resize(frame, (500, 500))
+  if rotation_angle != 0:
+      rows, cols, _ = frame.shape
+      M = cv2.getRotationMatrix2D((cols/2,rows/2), rotation_angle, 1)
+      frame = cv2.warpAffine(frame, M, (cols,rows))
+
   cv2.imwrite(output_loc + "/placeholder.jpg", frame)
 
   # frameTimeInSecs = round(count/fps,2)
@@ -96,8 +101,8 @@ def video_to_frames(input_loc, output_loc):
   # Log the time again
   time_end = time.time()
 
-  for string in stringArr:
-    print(string)
+  # for string in stringArr:
+  #   print(string)
 
 video = sys.argv[1]
 directory = sys.argv[2]
