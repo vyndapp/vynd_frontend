@@ -86,8 +86,8 @@ def video_to_frames(input_loc, output_loc):
         M = cv2.getRotationMatrix2D((cols/2,rows/2), rotation_angle, 1)
         frame = cv2.warpAffine(frame, M, (cols,rows))
 
-      cv2.imwrite(output_loc + "/%#03d.jpg" % (count), frame, [int(cv2.IMWRITE_JPEG_QUALITY), 75])
-      count += 1
+      # cv2.imwrite(output_loc + "/%#03d.jpg" % (count), frame, [int(cv2.IMWRITE_JPEG_QUALITY), 75])
+      # count += 1
       # frameTimeInSecs = round(count/fps,2)
       string = np_to_b64(frame)
       # stringArr.append('{{ \"frame\":\"{}\", \"timestamp\":\"{}\" }}'.format(string, frameTimeInSecs))
@@ -101,8 +101,8 @@ def video_to_frames(input_loc, output_loc):
   # Log the time again
   time_end = time.time()
 
-  # for string in stringArr:
-  #   print(string)
+  for string in stringArr:
+    print(string)
 
 video = sys.argv[1]
 directory = sys.argv[2]
