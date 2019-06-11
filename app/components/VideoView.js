@@ -13,6 +13,7 @@ export default class VideoView extends Component<Props> {
   props: Props;
 
   render() {
+
     return (
       <div className={classes.Container}>
         <div className={classes.NavBar}>
@@ -24,7 +25,7 @@ export default class VideoView extends Component<Props> {
         </div>
 
         <div className={classes.VideoDiv}>
-          <Player
+         <Player fluid={false} width="96%" height="71%"
             src={`./Data/Videos/${this.props.videoId}/Video${
               this.props.videoExt
             }`}
@@ -33,7 +34,7 @@ export default class VideoView extends Component<Props> {
           </Player>
 
           <Tags />
-          <h5>Video ID:{this.props.videoID}</h5>
+          <h5>ID:{this.props.videoId}</h5>
         </div>
 
         <div className={classes.VideosBar}>
