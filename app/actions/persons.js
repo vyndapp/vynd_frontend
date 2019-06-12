@@ -5,6 +5,8 @@ export const ADD_PERSONID = 'ADD_PERSONID';
 export const SEARCH_PERSON_NAME = 'SEARCH_PERSON_NAME';
 export const RENAME_PERSON = 'RENAME_PERSON';
 export const PERSON_LOADING = 'PERSON_LOADING';
+export const GET_FACES_FROM_IMG = 'GET_FACES_FROM_IMG';
+export const PUT_PERSONS = 'PUT_PERSONS';
 
 export const initPersonIds = () => {
   return async dispatch => {
@@ -39,6 +41,38 @@ export const addPersonId = ({ personId, personName }) => {
     type: ADD_PERSONID,
     personId,
     personName
+  };
+};
+
+const isStringInArry = (str, arr) => {
+  if (arr.indexOf(str) === -1) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+export const getFacesFromImage = base64Image => {
+  return async (dispatch, getState) => {
+    dispatch({ type: PERSON_LOADING, loading: true });
+    try {
+      const res = await axios({
+        method: 'post',
+        url: '/api/get-faces-in-image',
+        data: {
+          image: base64Image
+        }
+      });
+      const newPersonIds = getState().persons.allPersonIds.filter(person =>
+        isStringInArry(person.personId, res.data.faces_ids)
+      );
+      dispatch({ type: PUT_PERSONS, newPersonIds });
+    } catch (err) {
+      console.log('Fail');
+      console.log(err);
+    }
+
+    dispatch({ type: PERSON_LOADING, loading: false });
   };
 };
 

@@ -42,6 +42,11 @@ const person = (state = initialState, action) => {
         ...state,
         loading: action.loading
       };
+    case actionTypes.PUT_PERSONS:
+      return {
+        ...state,
+        personIds: action.newPersonIds
+      };
   }
   return state;
 };
