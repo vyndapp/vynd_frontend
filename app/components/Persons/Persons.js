@@ -3,6 +3,8 @@ import Person from './Person/Person';
 import classes from './Persons.css';
 import { connect } from 'react-redux';
 import Spinner from '../UI/Spinner/Spinner';
+import { bindActionCreators } from 'redux';
+import * as PersonsActions from '../../actions/persons';
 
 type Props = {};
 
@@ -45,6 +47,10 @@ class Persons extends Component<Props> {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(PersonsActions, dispatch);
+};
+
 const mapStateToProps = state => {
   return {
     personIds: state.persons.personIds,
@@ -52,4 +58,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Persons);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Persons);
