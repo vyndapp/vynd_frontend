@@ -26,14 +26,14 @@ const importButton = props => {
     <React.Fragment>
       <input
         className={classes.CustomFileInput}
-        id="fileInput"
+        id="videoInput"
         type="file"
         accept="video/*"
         multiple
         onChange={importFiles}
       />
 
-      <label className={classes.ImportButton} htmlFor="fileInput">
+      <label className={classes.ImportButton} htmlFor="videoInput">
         <span className={classes.ImportIcon} /> Import
       </label>
     </React.Fragment>

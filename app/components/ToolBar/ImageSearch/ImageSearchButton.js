@@ -39,13 +39,13 @@ class ImageSearchButton extends Component<Props> {
       <React.Fragment>
         <input
           className={classes.CustomFileInput}
-          id="fileInput"
+          id="imageInput"
           type="file"
           accept="image/*"
           onChange={this.importFile}
         />
 
-        <label className={classes.ImageSearchButton} htmlFor="fileInput">
+        <label className={classes.ImageSearchButton} htmlFor="imageInput">
           <span className={classes.ImageSearchIcon} />
         </label>
       </React.Fragment>
