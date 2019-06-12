@@ -36,6 +36,8 @@ class SearchBox extends Component<Props> {
       this.setState({
         inputValue: this.props.person.personName
       });
+    } else {
+      this.props.searchAction({ name: '' });
     }
   }
 
