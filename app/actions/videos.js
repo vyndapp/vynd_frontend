@@ -9,7 +9,7 @@ export const initVideoIds = () => {
     dispatch({ type: VIDEO_LOADING, loading: true });
     const newRes = await axios.get('/api/get-processed-videos');
     const videoIds = newRes.data.processed_videos_results.map(video => {
-      return { videoId: video.video_id, videoExt: video.extension };
+      return { videoId: video._id, videoExt: video.extension };
     });
     dispatch({ type: VIDEO_LOADING, loading: false });
     dispatch({ type: INIT_VIDEOIDS, videoIds });
@@ -41,7 +41,7 @@ export const searchVideoName = person => {
       });
       const newVideoIds = res.data.videos.map(video => ({
         videoExt: video.extension,
-        videoId: video.video_id
+        videoId: video._id
       }));
       dispatch({ type: INIT_VIDEOIDS, videoIds: newVideoIds });
     } catch (err) {
