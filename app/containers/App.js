@@ -4,6 +4,7 @@ import { ipcRenderer } from 'electron';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as VideosActions from '../actions/videos';
+import * as PersonsActions from '../actions/persons';
 
 type Props = {
   children: React.Node
@@ -13,6 +14,13 @@ class App extends React.Component<Props> {
   props: Props;
 
   componentDidMount() {
+    this.props.initVideoIds();
+    this.props.initPersonIds();
+    ipcRenderer.on('videos:processed', () => {
+      console.log('videos:processed');
+      this.props.initPersonIds();
+    });
+
     ipcRenderer.on('videos:retrieved', (event, videoIdAndExt) => {
       console.log('call redux for addVideoId');
       this.props.addVideoId({
@@ -28,7 +36,7 @@ class App extends React.Component<Props> {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(VideosActions, dispatch);
+  return bindActionCreators({ ...VideosActions, ...PersonsActions }, dispatch);
 };
 
 export default connect(

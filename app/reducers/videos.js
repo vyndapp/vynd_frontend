@@ -1,7 +1,8 @@
 import * as actionTypes from '../actions/videos';
 
 const initialState = {
-  videoIds: []
+  videoIds: [],
+  loading: false
 };
 
 const videos = (state = initialState, action) => {
@@ -18,6 +19,11 @@ const videos = (state = initialState, action) => {
           videoId: action.videoId,
           videoExt: action.videoExt
         })
+      };
+    case actionTypes.VIDEO_LOADING:
+      return {
+        ...state,
+        loading: action.loading
       };
   }
   return state;

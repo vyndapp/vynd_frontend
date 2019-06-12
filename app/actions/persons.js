@@ -4,9 +4,11 @@ export const INIT_PERSONIDS = 'INIT_PERSONIDS';
 export const ADD_PERSONID = 'ADD_PERSONID';
 export const SEARCH_PERSON_NAME = 'SEARCH_PERSON_NAME';
 export const RENAME_PERSON = 'RENAME_PERSON';
+export const PERSON_LOADING = 'PERSON_LOADING';
 
 export const initPersonIds = () => {
   return async dispatch => {
+    dispatch({ type: PERSON_LOADING, loading: true });
     const res = await axios.get('/api/get-faces');
     const personIds = res.data.faces.map(person => {
       return {
@@ -16,6 +18,7 @@ export const initPersonIds = () => {
       };
     });
     dispatch({ type: INIT_PERSONIDS, personIds });
+    dispatch({ type: PERSON_LOADING, loading: false });
 
     // const res = await axios.get(
     //   'https://vynd-5222f.firebaseio.com/personIds.json'

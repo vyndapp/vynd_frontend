@@ -2,7 +2,8 @@ import * as actionTypes from '../actions/persons';
 
 const initialState = {
   allPersonIds: [],
-  personIds: []
+  personIds: [],
+  loading: false
 };
 
 const person = (state = initialState, action) => {
@@ -35,6 +36,11 @@ const person = (state = initialState, action) => {
       return {
         ...state,
         personIds: action.searchedPersonIds
+      };
+    case actionTypes.PERSON_LOADING:
+      return {
+        ...state,
+        loading: action.loading
       };
   }
   return state;
